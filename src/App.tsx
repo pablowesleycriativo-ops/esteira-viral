@@ -1,0 +1,42 @@
+import { HashRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { Shell } from '@/components/Shell'
+import { AppStateProvider } from '@/state/store'
+import { CharacterDetailPage } from '@/pages/CharacterDetailPage'
+import { CharactersPage } from '@/pages/CharactersPage'
+import { FormatDetailPage } from '@/pages/FormatDetailPage'
+import { FormatsPage } from '@/pages/FormatsPage'
+import { HomePage } from '@/pages/HomePage'
+import { IdeaPage } from '@/pages/IdeaPage'
+import { SettingsPage } from '@/pages/SettingsPage'
+import { SystemPage } from '@/pages/SystemPage'
+import { SystemSectionPage } from '@/pages/SystemSectionPage'
+import { VideoDetailPage } from '@/pages/VideoDetailPage'
+import { VideoFormPage } from '@/pages/VideoFormPage'
+import { VideosPage } from '@/pages/VideosPage'
+
+export default function App() {
+  return (
+    <AppStateProvider>
+      <HashRouter>
+        <Routes>
+          <Route element={<Shell />}>
+            <Route index element={<HomePage />} />
+            <Route path="formatos" element={<FormatsPage />} />
+            <Route path="formatos/:id" element={<FormatDetailPage />} />
+            <Route path="personagens" element={<CharactersPage />} />
+            <Route path="personagens/:id" element={<CharacterDetailPage />} />
+            <Route path="videos" element={<VideosPage />} />
+            <Route path="videos/novo" element={<VideoFormPage />} />
+            <Route path="videos/:id" element={<VideoDetailPage />} />
+            <Route path="videos/:id/editar" element={<VideoFormPage />} />
+            <Route path="sistema" element={<SystemPage />} />
+            <Route path="sistema/:slug" element={<SystemSectionPage />} />
+            <Route path="ideia" element={<IdeaPage />} />
+            <Route path="ajustes" element={<SettingsPage />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Route>
+        </Routes>
+      </HashRouter>
+    </AppStateProvider>
+  )
+}
