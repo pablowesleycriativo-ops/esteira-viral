@@ -19,7 +19,15 @@ Abra o endereço que o terminal mostrar (porta 4317).
 npm run build
 ```
 
-A pasta `dist` é o site pronto. Dá para subir na Netlify, Cloudflare Pages, GitHub Pages ou qualquer hospedagem de arquivo estático. Não precisa de servidor.
+A pasta `dist` é o site pronto. Ela funciona na raiz de um domínio e também dentro de uma pasta, por exemplo `https://seuusuario.github.io/esteira-viral/`. Os endereços usam `#`, então atualizar a página não dá erro. Não precisa de servidor: suba o conteúdo de `dist` na Netlify, Cloudflare Pages, GitHub Pages ou qualquer hospedagem de arquivo.
+
+Se a hospedagem exigir um caminho fixo, dá para gerar com ele:
+
+```bash
+VITE_BASE=/esteira-viral/ npm run build
+```
+
+Sem essa variável, o site se adapta à pasta em que estiver.
 
 Para ver essa versão na sua máquina:
 

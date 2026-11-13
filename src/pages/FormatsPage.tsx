@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CRITERIA, TEST_HOWTO } from '@/data/facts'
+import { formatPicture } from '@/data/formatImages'
 import { formatDecimal } from '@/lib/format'
 import { compareFormats, criteriaAverage } from '@/lib/scores'
 import { useApp } from '@/state/store'
@@ -81,11 +82,16 @@ export function FormatsPage() {
       <div className="grid gap-3 md:grid-cols-2">
         {visible.map((format) => {
           const average = criteriaAverage(format.criteria)
+          const picture = formatPicture(format)
           const open = CRITERIA.filter((item) => format.criteria[item.key] == null).map((item) => item.label)
           return (
             <Link key={format.id} to={`/formatos/${format.id}`} className="block rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2">
               <Card className="h-full">
-                <Portrait image={format.image} icon={format.icon} className="mb-3 aspect-[2/1] w-full rounded-xl" />
+                <Portrait
+                  image={picture}
+                  icon={format.icon}
+                  className={picture ? 'mb-3 aspect-[3/4] w-full rounded-xl bg-[#F7F5F0] object-contain' : 'mb-3 aspect-[2/1] w-full rounded-xl'}
+                />
                 <div className="mb-2 flex items-start justify-between gap-2">
                   <p className="font-heading text-sm font-semibold">
                     {format.number != null ? `#${format.number}` : `Teste ${format.priority ?? ''}`}

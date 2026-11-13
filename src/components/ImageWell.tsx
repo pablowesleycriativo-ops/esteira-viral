@@ -4,19 +4,24 @@ import { Button } from '@/components/ui/button'
 
 export function ImageWell({
   image,
+  fallback = null,
   onImage,
+  aspect = 'aspect-[3/4]',
 }: {
   image: string | null
+  fallback?: string | null
   onImage: (value: string | null) => void
+  aspect?: string
 }) {
   const [error, setError] = useState<string | null>(null)
+  const shown = image || fallback
 
   return (
     <div className="flex flex-col gap-2">
-      {image ? (
-        <img src={image} alt="" className="aspect-video w-full rounded-2xl object-cover" />
+      {shown ? (
+        <img src={shown} alt="" className={`${aspect} w-full rounded-2xl bg-[#F7F5F0] object-contain`} />
       ) : (
-        <div className="grid aspect-[2/1] place-items-center rounded-2xl border border-dashed text-sm text-muted-foreground">Sem imagem</div>
+        <div className={`grid ${aspect} place-items-center rounded-2xl border border-dashed text-sm text-muted-foreground`}>Sem imagem</div>
       )}
       <div className="flex flex-wrap gap-2">
         <label className="inline-flex min-h-11 cursor-pointer items-center rounded-xl border bg-card px-4 text-sm font-medium">
@@ -44,6 +49,9 @@ export function ImageWell({
           </Button>
         ) : null}
       </div>
+      {fallback && !image ? (
+        <p className="text-sm leading-snug text-muted-foreground">Ilustração do formato. Uma imagem sua entra no lugar. Se você apagar a sua, esta volta.</p>
+      ) : null}
       {error ? <p className="text-sm text-destructive">{error}</p> : null}
     </div>
   )

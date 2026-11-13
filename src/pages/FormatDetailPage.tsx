@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { CRITERIA, PHASES } from '@/data/facts'
+import { defaultFormatImage } from '@/data/formatImages'
 import { formatDate, formatDecimal } from '@/lib/format'
 import { criteriaAverage } from '@/lib/scores'
 import { formatPerformance } from '@/lib/stats'
@@ -39,7 +40,11 @@ export function FormatDetailPage() {
         {format.priority != null ? <span className="text-sm font-semibold">Prioridade {format.priority}</span> : null}
       </div>
       <PageIntro title={format.name} />
-      <ImageWell image={format.image} onImage={(image) => updateFormat(format.id, { image })} />
+      <ImageWell
+        image={format.image}
+        fallback={defaultFormatImage(format.id)}
+        onImage={(image) => updateFormat(format.id, { image })}
+      />
       <IconPicker value={format.icon} onChange={(icon) => updateFormat(format.id, { icon })} />
       <Card>
         <h2 className="text-lg font-semibold">Descrição</h2>

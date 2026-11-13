@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { formatPicture } from '@/data/formatImages'
 import { normalizeState } from '@/lib/backup'
 import { seedState } from '@/data/seed'
 import { decideCharacter, diagnose } from '@/lib/decision'
@@ -150,6 +151,18 @@ describe('diagnóstico e semana', () => {
     expect(weekBalance([catalog], now).alert).toBe('zero')
     const more = [2, 3].map((n) => video({ id: `c${n}`, formatId: 'fmt-6', characterId: 'chr-sonic', date: '2026-11-10' }))
     expect(weekBalance([tests[0], catalog, ...more], now).alert).toBe('ok')
+  })
+})
+
+describe('ilustrações', () => {
+  it('usa a arte do formato quando não há upload e volta a ela se o upload sai', () => {
+    const bombado = seedState().formats.find((format) => format.id === 'fmt-1')!
+    expect(bombado.image).toBeNull()
+    const builtIn = formatPicture(bombado)
+    expect(builtIn).toMatch(/01-bombado/)
+    expect(formatPicture({ ...bombado, image: 'data:image/jpeg;base64,abc' })).toBe('data:image/jpeg;base64,abc')
+    expect(formatPicture({ ...bombado, image: null })).toBe(builtIn)
+    expect(formatPicture({ id: 'fmt-veneno', image: null })).toBeNull()
   })
 })
 

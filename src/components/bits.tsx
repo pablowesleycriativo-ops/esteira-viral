@@ -158,7 +158,7 @@ export function AverageBadge({ mark }: { mark: AverageMark }) {
 }
 
 export function Portrait({ image, icon, className }: { image: string | null; icon: string; className?: string }) {
-  if (image) return <img src={image} alt="" className={cn('object-cover', className)} />
+  if (image) return <img src={image} alt="" className={cn('bg-[#F7F5F0] object-contain', className)} />
   return (
     <span className={cn('grid place-items-center bg-muted text-foreground', className)}>
       <AppIcon name={icon} className="size-7" />
