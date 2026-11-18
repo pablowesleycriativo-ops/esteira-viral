@@ -64,6 +64,7 @@ export type Video = {
   searchPct: number | null
   lesson: string
   formatStatus: FormatStatus
+  youtubeId: string | null
 }
 
 export type Step = {
@@ -110,6 +111,50 @@ export type AppState = {
   steps: Step[]
   settings: Settings
   ideaDraft: IdeaDraft
+  imports: ImportRecord[]
+}
+
+export type ImportSource = 'csv' | 'print'
+
+/** Prazo que os números do export representam. */
+export type ImportWindow = '48h' | '7d' | 'periodo'
+
+export type MetricValues = {
+  views: number | null
+  apv: number | null
+  avgViewSec: number | null
+  viewed: number | null
+  subscribers: number | null
+  impressions: number | null
+  ctr: number | null
+  searchPct: number | null
+  likes: number | null
+  shares: number | null
+}
+
+export type ImportLink =
+  | { kind: 'video'; videoId: string }
+  | { kind: 'novo'; formatId: string; characterId: string }
+  | { kind: 'nenhum' }
+
+export type ImportRow = MetricValues & {
+  key: string
+  youtubeId: string | null
+  title: string
+  publishDate: string | null
+  durationSec: number | null
+  link: ImportLink
+}
+
+export type ImportRecord = {
+  id: string
+  createdAt: string
+  source: ImportSource
+  fileName: string
+  window: ImportWindow
+  note: string
+  rows: ImportRow[]
+  totals: MetricValues | null
 }
 
 export type SortKey = 'media' | 'resultado' | 'reaproveitamento' | 'dificuldade'

@@ -1,4 +1,5 @@
 import { PHASES } from '@/data/facts'
+import { normalizeImports } from '@/lib/imports'
 import { emptyIdea, seedSteps } from '@/data/seed'
 import type {
   AppState,
@@ -155,6 +156,7 @@ export function normalizeState(input: unknown): AppState {
       searchPct: num(video.searchPct),
       lesson: typeof video.lesson === 'string' ? video.lesson : '',
       formatStatus: statusOf(video.formatStatus),
+      youtubeId: typeof video.youtubeId === 'string' && video.youtubeId ? video.youtubeId : null,
     }
   })
 
@@ -187,5 +189,6 @@ export function normalizeState(input: unknown): AppState {
       averageBasis: basis,
     },
     ideaDraft,
+    imports: normalizeImports(raw.imports),
   }
 }

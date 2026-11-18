@@ -370,5 +370,6 @@ export function seedState(): AppState {
     steps: seedSteps,
     settings: { channelAverage: null, averageBasis: '48h' },
     ideaDraft: emptyIdea(),
+    imports: [],
   }
 }

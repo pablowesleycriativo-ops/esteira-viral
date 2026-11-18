@@ -2,7 +2,8 @@ import { createContext, useContext, useEffect, useMemo, useReducer, useState, ty
 import { normalizeState } from '@/lib/backup'
 import { idbGet, idbSet } from '@/lib/db'
 import { seedState } from '@/data/seed'
-import type { AppState, Character, CriteriaKey, FormatItem, IdeaDraft, Score, Settings, Step, Video } from '@/types'
+import { applyImport } from '@/lib/imports'
+import type { AppState, Character, CriteriaKey, FormatItem, IdeaDraft, ImportRecord, Score, Settings, Step, Video } from '@/types'
 
 type Action =
   | { type: 'hydrate'; state: AppState }
@@ -19,6 +20,8 @@ type Action =
   | { type: 'patch-step'; id: string; patch: Partial<Step> }
   | { type: 'patch-settings'; patch: Partial<Settings> }
   | { type: 'set-idea'; draft: IdeaDraft }
+  | { type: 'save-import'; record: ImportRecord }
+  | { type: 'delete-import'; id: string }
 
 function reducer(state: AppState | null, action: Action): AppState | null {
   if (action.type === 'hydrate' || action.type === 'replace') return action.state
@@ -76,6 +79,10 @@ function reducer(state: AppState | null, action: Action): AppState | null {
       return { ...state, settings: { ...state.settings, ...action.patch } }
     case 'set-idea':
       return { ...state, ideaDraft: action.draft }
+    case 'save-import':
+      return applyImport(state, action.record)
+    case 'delete-import':
+      return { ...state, imports: state.imports.filter((item) => item.id !== action.id) }
     default:
       return state
   }
@@ -98,6 +105,8 @@ type Api = {
   updateSettings: (patch: Partial<Settings>) => void
   setIdea: (draft: IdeaDraft) => void
   importBackup: (input: unknown) => string | null
+  saveImport: (record: ImportRecord) => void
+  deleteImport: (id: string) => void
 }
 
 const Ctx = createContext<Api | null>(null)
@@ -186,6 +195,8 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
       updateStep: (id, patch) => dispatch({ type: 'patch-step', id, patch }),
       updateSettings: (patch) => dispatch({ type: 'patch-settings', patch }),
       setIdea: (draft) => dispatch({ type: 'set-idea', draft }),
+      saveImport: (record) => dispatch({ type: 'save-import', record }),
+      deleteImport: (id) => dispatch({ type: 'delete-import', id }),
       importBackup: (input) => {
         try {
           const next = normalizeState(input)

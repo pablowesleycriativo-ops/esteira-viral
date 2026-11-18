@@ -71,6 +71,7 @@ function video(partial: Partial<Video> & Pick<Video, 'id' | 'formatId' | 'charac
     searchPct: null,
     lesson: '',
     formatStatus: 'catalogo',
+    youtubeId: null,
     ...partial,
   }
 }
