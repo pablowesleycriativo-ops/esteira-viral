@@ -13,6 +13,11 @@ import { SystemSectionPage } from '@/pages/SystemSectionPage'
 import { VideoDetailPage } from '@/pages/VideoDetailPage'
 import { VideoFormPage } from '@/pages/VideoFormPage'
 import { VideosPage } from '@/pages/VideosPage'
+import { MetricsPage } from '@/pages/MetricsPage'
+import { CsvImportPage } from '@/pages/CsvImportPage'
+import { PrintImportPage } from '@/pages/PrintImportPage'
+import { ReportPage } from '@/pages/ReportPage'
+import { ImportDetailPage, ImportHistoryPage } from '@/pages/ImportHistoryPage'
 
 export default function App() {
   return (
@@ -33,6 +38,12 @@ export default function App() {
             <Route path="sistema/:slug" element={<SystemSectionPage />} />
             <Route path="ideia" element={<IdeaPage />} />
             <Route path="ajustes" element={<SettingsPage />} />
+            <Route path="metricas" element={<MetricsPage />} />
+            <Route path="metricas/csv" element={<CsvImportPage />} />
+            <Route path="metricas/print" element={<PrintImportPage />} />
+            <Route path="metricas/relatorio" element={<ReportPage />} />
+            <Route path="metricas/historico" element={<ImportHistoryPage />} />
+            <Route path="metricas/historico/:id" element={<ImportDetailPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
         </Routes>
