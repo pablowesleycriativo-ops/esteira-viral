@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { BookOpen, Clapperboard, House, LayoutGrid, Plus, Settings, Users } from 'lucide-react'
+import { BarChart3, BookOpen, Clapperboard, House, LayoutGrid, Plus, Settings, Users } from 'lucide-react'
 import { useApp } from '@/state/store'
 import { Button } from '@/components/ui/button'
 
@@ -20,7 +20,7 @@ function isActive(pathname: string, href: string) {
 export function Shell() {
   const { pathname } = useLocation()
   const { error, clearError } = useApp()
-  const hideFab = pathname === '/ideia' || pathname === '/ajustes' || pathname === '/videos/novo' || pathname.endsWith('/editar')
+  const hideFab = pathname.startsWith('/metricas/') || pathname === '/ideia' || pathname === '/ajustes' || pathname === '/videos/novo' || pathname.endsWith('/editar')
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -36,11 +36,19 @@ export function Shell() {
           <Link to="/" className="inline-flex min-h-11 items-center font-heading text-lg font-semibold tracking-tight">
             Esteira Viral
           </Link>
+          <div className="flex items-center gap-1">
+          <Button variant={pathname.startsWith('/metricas') ? 'default' : 'ghost'} asChild>
+            <Link to="/metricas" aria-current={pathname.startsWith('/metricas') ? 'page' : undefined}>
+              <BarChart3 aria-hidden />
+              Métricas
+            </Link>
+          </Button>
           <Button variant={pathname === '/ajustes' ? 'default' : 'ghost'} size="icon" asChild>
             <Link to="/ajustes" aria-label="Ajustes" aria-current={pathname === '/ajustes' ? 'page' : undefined}>
               <Settings />
             </Link>
           </Button>
+          </div>
         </div>
       </header>
       {error ? (
