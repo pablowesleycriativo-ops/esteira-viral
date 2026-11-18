@@ -15,9 +15,14 @@ export function VideosPage() {
         title="Vídeos"
         lede="Diário do que foi publicado. Ao salvar, o placar e a conta do formato são recalculados. O caderno de 13/nov não trazia vídeos com números."
       />
-      <Button asChild>
-        <Link to="/videos/novo">Registrar vídeo</Link>
-      </Button>
+      <div className="grid grid-cols-2 gap-2">
+        <Button asChild>
+          <Link to="/videos/novo">Registrar vídeo</Link>
+        </Button>
+        <Button variant="outline" asChild>
+          <Link to="/metricas">Importar métricas</Link>
+        </Button>
+      </div>
       {videos.length === 0 ? (
         <p className="rounded-2xl border bg-card p-4 text-sm leading-relaxed">
           O diário está vazio. O placar de 12/nov continua valendo até entrar um vídeo com views.

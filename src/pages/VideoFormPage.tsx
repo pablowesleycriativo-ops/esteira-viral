@@ -126,6 +126,7 @@ export function VideoFormPage() {
             searchPct: readNumber(draft.searchPct, 'Busca'),
             lesson: draft.lesson.trim(),
             formatStatus: existing && existing.formatId === draft.formatId ? existing.formatStatus : format.status,
+            youtubeId: existing?.youtubeId ?? null,
           }
           saveVideo(video)
           navigate(`/videos/${video.id}`)
