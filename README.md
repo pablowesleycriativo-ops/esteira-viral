@@ -37,7 +37,11 @@ npm run preview
 
 No celular, abra o endereço publicado no Chrome ou Safari e use **Adicionar à tela de início**. A primeira visita precisa de internet. Depois o app abre sem rede. Os vídeos e as notas continuam só neste aparelho: em Ajustes, exporte o JSON de vez em quando e guarde o arquivo.
 
-## Testes
+## Métricas
+
+O botão Métricas, no topo, lê o CSV ou o .zip exportado do YouTube Studio e prints das telas de um Short. O print passa por OCR no navegador, e na primeira vez o idioma é baixado da internet. Cada importação fica no histórico e alimenta o Relatório por etapa: pesquisa, gancho, retenção, postagem e fidelização, com o gargalo em destaque.
+
+Testes
 
 ```bash
 npm test
