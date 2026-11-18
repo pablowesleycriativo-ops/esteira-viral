@@ -1,6 +1,7 @@
 import { PHASES } from '@/data/facts'
 import { normalizeImports } from '@/lib/imports'
 import { emptyIdea, seedSteps } from '@/data/seed'
+import type { WatchItem } from '@/lib/radar'
 import type {
   AppState,
   AverageBasis,
@@ -191,4 +192,20 @@ export function normalizeState(input: unknown): AppState {
     ideaDraft,
     imports: normalizeImports(raw.imports),
   }
+}
+
+export function buildBackup(state: AppState, options?: { exportedAt?: string; watchlist?: WatchItem[] | null }) {
+  const payload: Record<string, unknown> = {
+    version: 1,
+    exportedAt: options?.exportedAt ?? new Date().toISOString(),
+    formats: state.formats,
+    characters: state.characters,
+    videos: state.videos,
+    steps: state.steps,
+    settings: state.settings,
+    ideaDraft: state.ideaDraft,
+    imports: state.imports,
+  }
+  if (options?.watchlist?.length) payload.radarWatchlist = options.watchlist
+  return payload
 }

@@ -6,6 +6,7 @@ import { CharactersPage } from '@/pages/CharactersPage'
 import { FormatDetailPage } from '@/pages/FormatDetailPage'
 import { FormatsPage } from '@/pages/FormatsPage'
 import { HomePage } from '@/pages/HomePage'
+import { RadarPage } from '@/pages/RadarPage'
 import { IdeaPage } from '@/pages/IdeaPage'
 import { SettingsPage } from '@/pages/SettingsPage'
 import { SystemPage } from '@/pages/SystemPage'
@@ -36,6 +37,7 @@ export default function App() {
             <Route path="videos/:id/editar" element={<VideoFormPage />} />
             <Route path="sistema" element={<SystemPage />} />
             <Route path="sistema/:slug" element={<SystemSectionPage />} />
+            <Route path="em-alta" element={<RadarPage />} />
             <Route path="ideia" element={<IdeaPage />} />
             <Route path="ajustes" element={<SettingsPage />} />
             <Route path="metricas" element={<MetricsPage />} />

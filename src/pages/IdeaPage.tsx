@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { ELEMENTS, KEYWORD_GROUPS, PHASES } from '@/data/facts'
 import { formatDecimal, titleHasDate, toHashtag, wordCount } from '@/lib/format'
 import { criteriaAverage } from '@/lib/scores'
@@ -19,6 +20,8 @@ const MARKS: { id: ElementMark; label: string }[] = [
 
 export function IdeaPage() {
   const { state, setIdea } = useApp()
+  const location = useLocation()
+  const radarSubject = typeof (location.state as { radarSubject?: unknown } | null)?.radarSubject === 'string' ? (location.state as { radarSubject: string }).radarSubject : ''
   const draft = state.ideaDraft
   const [copied, setCopied] = useState('')
   const format = state.formats.find((item) => item.id === draft.formatId)
@@ -63,6 +66,11 @@ export function IdeaPage() {
         title="Analisar ideia"
         lede="Nada disto é regra fixa. É direção para não se dispersar. Menos esforço + mais resultado vence qualquer regra."
       />
+      {radarSubject ? (
+        <p className="rounded-2xl border bg-card p-4 text-sm leading-relaxed" role="status">
+          O título veio do Em alta: {radarSubject}. Complete a ação e a keyword se quiser.
+        </p>
+      ) : null}
 
       <Card className="flex flex-col gap-4">
         <h2 className="text-lg font-semibold">6 elementos</h2>

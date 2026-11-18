@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { TriangleAlert } from 'lucide-react'
+import { TrendingUp, TriangleAlert } from 'lucide-react'
 import { FORMULA, TEST_HOWTO } from '@/data/facts'
 import { formatDecimal, todayISO } from '@/lib/format'
 import { formatWeek, weekBalance } from '@/lib/week'
@@ -48,6 +48,14 @@ export function HomePage() {
           Registrar vídeo
         </Link>
       </Card>
+
+      <Link to="/em-alta" className="flex items-center gap-3 rounded-2xl border bg-card p-4">
+        <TrendingUp className="size-5 shrink-0" aria-hidden />
+        <span>
+          <span className="block font-semibold">Em alta</span>
+          <span className="mt-1 block text-sm text-muted-foreground">Temas e personagens que estão rendendo acima do normal no YouTube.</span>
+        </span>
+      </Link>
 
       <Balance alert={balance.alert} tests={balance.tests} total={balance.total} />
 

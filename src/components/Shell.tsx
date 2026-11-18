@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { BarChart3, BookOpen, Clapperboard, House, LayoutGrid, Plus, Settings, Users } from 'lucide-react'
+import { BarChart3, BookOpen, Clapperboard, House, LayoutGrid, Plus, Settings, TrendingUp, Users } from 'lucide-react'
 import { useApp } from '@/state/store'
 import { Button } from '@/components/ui/button'
 
 const TABS = [
   { href: '/', label: 'Início', icon: House },
+  { href: '/em-alta', label: 'Em alta', icon: TrendingUp },
   { href: '/formatos', label: 'Formatos', icon: LayoutGrid },
   { href: '/personagens', label: 'Personagens', icon: Users },
   { href: '/videos', label: 'Vídeos', icon: Clapperboard },
@@ -20,7 +21,7 @@ function isActive(pathname: string, href: string) {
 export function Shell() {
   const { pathname } = useLocation()
   const { error, clearError } = useApp()
-  const hideFab = pathname.startsWith('/metricas/') || pathname === '/ideia' || pathname === '/ajustes' || pathname === '/videos/novo' || pathname.endsWith('/editar')
+  const hideFab = pathname.startsWith('/metricas/') || pathname === '/ideia' || pathname === '/ajustes' || pathname === '/em-alta' || pathname === '/videos/novo' || pathname.endsWith('/editar')
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -77,7 +78,7 @@ export function Shell() {
         aria-label="Seções"
         className="fixed inset-x-0 bottom-0 z-20 border-t bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur"
       >
-        <div className="mx-auto grid h-[4.25rem] max-w-3xl grid-cols-5">
+        <div className="mx-auto grid min-h-[4.25rem] max-w-3xl grid-cols-6">
           {TABS.map((tab) => {
             const active = isActive(pathname, tab.href)
             const Icon = tab.icon
@@ -86,7 +87,7 @@ export function Shell() {
                 key={tab.href}
                 to={tab.href}
                 aria-current={active ? 'page' : undefined}
-                className={`flex min-h-11 flex-col items-center justify-center gap-0.5 text-[11px] leading-tight ${active ? 'font-semibold' : 'font-medium text-muted-foreground'}`}
+                className={`flex min-h-11 flex-col items-center justify-center gap-0.5 px-0.5 py-1 text-center text-[10px] leading-tight sm:text-[11px] ${active ? 'font-semibold' : 'font-medium text-muted-foreground'}`}
               >
                 <Icon className="size-5" aria-hidden strokeWidth={active ? 2.4 : 1.75} />
                 {tab.label}
